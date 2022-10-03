@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/BitmapText.gd" type="Script" id=1]
+
+[node name="BitmapText" type="MarginContainer"]
+light_mask = 2
+margin_right = 65.0
+margin_bottom = 14.0
+mouse_filter = 1
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 65.0
+margin_bottom = 14.0
+text = "TEXT HERE"
