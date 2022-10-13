@@ -1,0 +1,199 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://images/Scanlines.png" type="Texture" id=1]
+[ext_resource path="res://images/White.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/ScanMode.gd" type="Script" id=3]
+[ext_resource path="res://shader_test.tres" type="Shader" id=4]
+[ext_resource path="res://Instances/ScannerPip.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ScanClusterItem.gdshader" type="Shader" id=6]
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 6 )
+shader_param/time_scale = null
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+shader_param/strength = 1.5
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 4 )
+shader_param/strength = 1.5
+
+[node name="Scan" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Scanlines" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.745098 )
+
+[node name="Sprite" type="Sprite" parent="Scanlines"]
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite2" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 16 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite3" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 32 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite4" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 48 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite5" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 64 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite6" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 80 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite7" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 96 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite8" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 112 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite9" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 128 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite10" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 144 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite11" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 160 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite12" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 176 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite13" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 192 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sprite14" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 228 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite15" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 244 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite16" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 260 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite17" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 276 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite18" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 292 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite19" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 308 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite20" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 324 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite21" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 340 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite22" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 356 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Sprite23" type="Sprite" parent="Scanlines"]
+position = Vector2( 0, 372 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0.3, -20 )
+
+[node name="Clusters" type="Node2D" parent="."]
+material = SubResource( 5 )
+
+[node name="ScannerPip" parent="Clusters" instance=ExtResource( 5 )]
+visible = false
+
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="Sweeper1" type="Sprite" parent="BackBufferCopy2"]
+material = SubResource( 3 )
+position = Vector2( 0, 117 )
+scale = Vector2( 40, 3.4375 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="Sweeper2" type="Sprite" parent="BackBufferCopy"]
+material = SubResource( 4 )
+position = Vector2( 0, 89 )
+scale = Vector2( 40, 1 )
+texture = ExtResource( 2 )
+centered = false

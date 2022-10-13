@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Lander.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Lander.gd" type="Script" id=1]
 [ext_resource path="res://images/RadialGradient.png" type="Texture" id=2]
 [ext_resource path="res://images/Lander.png" type="Texture" id=3]
 [ext_resource path="res://images/Turret.png" type="Texture" id=4]

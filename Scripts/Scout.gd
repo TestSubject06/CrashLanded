@@ -7,6 +7,7 @@ extends Enemy
 var state = "roaming"
 var targetPos = null
 var _player: Player
+var _lander: Lander
 var chase_target: Node2D
 var rng = RandomNumberGenerator.new()
 var turning = false
@@ -22,8 +23,9 @@ func _ready():
 	$CanvasLayer.offset = position;
 	$CanvasLayer.visible = false;
 
-func set_player(player: Player):
+func set_targets(player: Player, lander: Lander):
 	_player = player
+	_lander = lander
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -48,11 +50,15 @@ func do_state(delta):
 		
 	match(state):
 		"roaming":
-			#Pick a random point somewhere near the player and move to it
+			#Pick a random point somewhere near either the player or the lander and move to it
 			#When you arrive, pick a new point
 			var velocity = Vector2(0, 0)
 			if(!targetPos):
-				targetPos = _player.position + Vector2(rng.randi_range(-200, 200), rng.randi_range(-200, 200))
+				var offset = Vector2(rng.randi_range(-200, 200), rng.randi_range(-200, 200))
+				if randi() % 2 == 1:
+					targetPos = _player.position + offset
+				else:
+					targetPos = _lander.position + offset
 				turning = true
 				lerp_weight = 0
 				
@@ -64,6 +70,7 @@ func do_state(delta):
 					rotation = position.angle_to_point(targetPos) - PI/2
 					turning = false;
 			
+			# warning-ignore:return_value_discarded
 			move_and_slide(velocity)
 			
 			if position.distance_squared_to(targetPos) < 10:
@@ -73,6 +80,7 @@ func do_state(delta):
 		"chase":
 			var velocity = position.direction_to(chase_target.position) * 125
 			rotation = lerp_angle(rotation, position.angle_to_point(chase_target.position) - PI/2, 0.5)
+			# warning-ignore:return_value_discarded
 			move_and_slide(velocity)
 			
 			if position.distance_squared_to(chase_target.position) < 2500:
@@ -89,6 +97,7 @@ func change_state(new_state):
 	state = new_state
 	enter_state(state)
 	
+# warning-ignore:shadowed_variable
 func enter_state(state):
 	match (state):
 		"roaming":
@@ -97,6 +106,7 @@ func enter_state(state):
 			$VisionCone.set_deferred("monitoring", false);
 			$AudioStreamPlayer.play(0.0);
 
+# warning-ignore:shadowed_variable
 func exit_state(state):
 	match (state):
 		"roaming":
@@ -111,6 +121,7 @@ func _on_Area2D_body_entered(body):
 		chase_target = body;
 		change_state("chase")
 
+# warning-ignore:shadowed_variable
 func on_take_damage(damage: float, damage_point: Vector2, source: Node2D, piercing = false):
 	
 	if(state != "chase"):

@@ -33,7 +33,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("Fire"):
-		get_tree().change_scene("res://Main.tscn");
+		if get_tree().change_scene("res://Scenes/Main.tscn") != OK:
+			print("Failed to transition to main scene from Game Over.")
 	pass

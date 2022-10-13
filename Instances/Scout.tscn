@@ -97,13 +97,17 @@ max_value = 1.0
 value = 1.0
 percent_visible = false
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 volume_db = -10.338
+max_distance = 1500.0
+attenuation = 1.86607
 
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 volume_db = -13.38
+max_distance = 1500.0
+attenuation = 1.86607
 
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="body_entered" from="VisionCone" to="." method="_on_Area2D_body_entered"]

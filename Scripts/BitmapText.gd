@@ -15,6 +15,7 @@ func _ready():
 	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ/ 0123456789:%@#+>-."
 	font.add_texture(font_texture)
 	for i in range (0, chars.length()):
+		# warning-ignore:integer_division
 		font.add_char(chars.ord_at(i), 0, Rect2(7 * (i % 7), 7 * floor(i/7), 7, 7), Vector2(0, 0), 6)
 	font.add_char("(".ord_at(0), 0, Rect2(32, 48, 16, 16), Vector2(0,-8), 16)
 	font.add_char(")".ord_at(0), 0, Rect2(48, 48, 16, 16), Vector2(0,-8), 16)

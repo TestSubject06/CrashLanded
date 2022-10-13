@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Player2.gd" type="Script" id=1]
 [ext_resource path="res://SpriteFrames/PlayerFrames.tres" type="SpriteFrames" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://TestOccluder.tres" type="OccluderPolygon2D" id=4]
 [ext_resource path="res://sounds/hurt.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/shot.wav" type="AudioStream" id=6]
+[ext_resource path="res://images/Indicator.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -122,6 +123,9 @@ custom_styles/bg = SubResource( 5 )
 max_value = 1.0
 value = 1.0
 percent_visible = false
+
+[node name="PositionalIndicator" type="Sprite" parent="."]
+texture = ExtResource( 7 )
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )

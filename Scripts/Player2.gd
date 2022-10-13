@@ -1,11 +1,6 @@
 extends KinematicBody2D
 class_name Player
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 export (int) var speed = 200
 
 var velocity = Vector2()
@@ -91,6 +86,11 @@ func _physics_process(delta):
 	# Aiming
 	face_cursor()
 	
+	
+	var toward_lander = position.angle_to_point(root.get_node("GameWorld/Lander").position);
+	$PositionalIndicator.rotation = -rotation + toward_lander - PI;
+	$PositionalIndicator.position = Vector2(-75, 0).rotated(-rotation + toward_lander)
+	
 	# Leave footsteps as we walk
 	if(velocity.length() != 0):
 		footstep_accumulator += delta
@@ -131,6 +131,7 @@ func handle_damage(collider: CollisionObject2D):
 		if(collider is Enemy):
 			(collider as Enemy).on_take_damage(damage, collision_point, self)
 	
+# warning-ignore:shadowed_variable
 func on_take_damage(damage: float, source: Node2D):
 	$HurtSound.play(0.0)
 	health -= clamp(damage - armor, 1, 999);
@@ -144,4 +145,5 @@ func on_take_damage(damage: float, source: Node2D):
 	
 	if(health <= 0):
 		Global.death_reason = "player"
-		get_tree().change_scene("res://GameOver.tscn")
+		if get_tree().change_scene("res://Scenes/GameOver.tscn") != OK:
+			print("Failed to transition to Game Over from main scene")

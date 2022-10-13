@@ -1,5 +1,5 @@
 extends RigidBody2D
-
+class_name Lander
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -89,6 +89,7 @@ func handle_gunshot():
 func _on_TargetingTimer_timeout():
 	aiming = false;
 
+# warning-ignore:shadowed_variable
 func on_take_damage(damage: float, source: Node2D):
 	$DamageSparks.rotation = position.angle_to_point(source.position) + PI/2;
 	$DamageSparks.restart();
@@ -98,5 +99,6 @@ func on_take_damage(damage: float, source: Node2D):
 	health -= clamp(damage - armor, 1, 999);
 	if(health <= 0):
 		Global.death_reason = "lander"
-		get_tree().change_scene("res://GameOver.tscn")
+		if get_tree().change_scene("res://Scenes/GameOver.tscn") != OK:
+			print("Failed to transition to Game Over from main scene.")
 	pass

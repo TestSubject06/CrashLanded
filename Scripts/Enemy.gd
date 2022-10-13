@@ -20,7 +20,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func on_take_damage(damage: float, damage_point: Vector2, source: Node2D, piercing = false):
+func on_take_damage(_damage: float, _damage_point: Vector2, _source: Node2D, _piercing = false):
 	print("An enemy has not handled damage yet")
 	pass
 

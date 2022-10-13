@@ -1,0 +1,8 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+uniform float strength;
+void fragment(){
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0) * vec4(1.1 * strength, 1.1 * strength, 1.1 * strength, 1);
+}"

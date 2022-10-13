@@ -8,12 +8,12 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_tree().paused = false;
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("Fire"):
-		get_tree().change_scene("res://Main.tscn");
+		if get_tree().change_scene("res://Scenes/Main.tscn") != OK:
+			print("Failed to transition to main scene from the main menu")
 	pass

@@ -1,5 +1,6 @@
 extends Node2D
-
+class_name Orchestrator
+signal on_tile_mined
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -29,6 +30,10 @@ var scout_damage = 3;
 # Wrap back to 0
 var time_of_day = 0;
 
+func _init():
+	rng.seed = hash(Time.get_unix_time_from_system());
+	print("seed: ", rng.seed);
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$UI.set_resources(minerals, silicates)
@@ -41,8 +46,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # warning-ignore:unused_argument
 func _process(delta):
-	rng.randomize()
-	
 	process_time_of_day(delta);
 	
 	playerTilePosition = get_tile_coords($Player.position.x, $Player.position.y)
@@ -61,7 +64,8 @@ func _process(delta):
 		)
 		$UI.set_resources(minerals, silicates)
 		$MineSound.play(0.0)
-
+		emit_signal("on_tile_mined", playerTilePosition)
+	
 func get_tile_coords(x, y):
 	return Vector2(floor(x/96), floor(y/96))
 
@@ -74,13 +78,14 @@ func get_resources_at(tileX, tileY):
 		var mineralsDist = get_mineral_distribution(distanceToHome)
 		
 		resourceTable[key] = {
+			"scatter_seed": rng.randi(),
 			"minerals": clamp(floor(rng.randfn(mineralsDist.mean, mineralsDist.dev)), 1, 50),
 			"silicates": clamp(floor(rng.randfn(silicatesDist.mean, silicatesDist.dev)), 0, 10),
 			"mined_out": false,
 			"progress": 0,
 			"difficulty": distanceToHome
 		}
-		print(resourceTable[key])
+		# print(resourceTable[key])
 	return resourceTable[key]
 
 func get_silicate_distribution(distanceSquared):
@@ -105,9 +110,20 @@ func get_enemy_within_range(position: Vector2, attack_range: float) -> Enemy:
 
 func _on_Timer_timeout():
 	var scout = scout_enemy.instance()
-	scout.set_player($Player)
-	scout.position = $Player.position + (400 * Vector2(1, 0).rotated(rand_range(0, 2*PI)));
-	
+	scout.set_targets($Player, $GameWorld/Lander)
+	var offset = (400 * Vector2(1, 0).rotated(rand_range(0, 2*PI)));
+	if rng.randi() % 2 == 1:
+		scout.position = $Player.position + offset;
+	else:
+		scout.position = $GameWorld/Lander.position + offset;
+		
+		# If the enemy would spawn on-screen - retry the spawn.
+		var viewport_world = get_viewport_rect()
+		viewport_world.position -= get_viewport_transform().origin
+		while(viewport_world.has_point(scout.position)):
+			offset = (400 * Vector2(1, 0).rotated(rand_range(0, 2*PI)));
+			scout.position = $GameWorld/Lander.position + offset;
+		
 	# Scout stats are scaled with # days
 	scout.max_health = scout_max_health;
 	scout.health = scout_max_health;
@@ -158,7 +174,8 @@ func _on_BuyMenu_on_item_chosen(data):
 		"SHUTTLE_ARMOR":
 			$GameWorld/Lander.armor += 5;
 		"SHUTTLE_REPAIR":
-			get_tree().change_scene("res://Victory.tscn");
+			if get_tree().change_scene("res://Scenes/Victory.tscn") != OK:
+				print("Failed to transition to Victory scene from main scene.")
 			pass
 	pass # Replace with function body.
 
@@ -225,6 +242,7 @@ func process_time_of_day(delta):
 		$SpawnTimer.stop()
 		$SpawnTimer.start()
 
+# warning-ignore:shadowed_variable
 func scale_enemies(day):
 	scout_armor = scout_armor_curve.interpolate(clamp(day/40.0, 0, 1))
 	scout_max_health = scout_health_curve.interpolate(clamp(day/40.0, 0, 1))
